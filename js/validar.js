@@ -20,10 +20,10 @@ function validarNome(e) {
     const nomeValue = e.target.value.trim();
 
     if (nomeValue.length < 6) {
-        nomeHelp.textContent = "O nome deve ter pelo menos 6 caracteres.";
+        nomeHelp.textContent = "Nome inválido";
         nomeHelp.style.color = "red";
     } else if (/\d/.test(nomeValue)) {
-        nomeHelp.textContent = "O nome não pode conter números.";
+        nomeHelp.textContent = "Nome inválido";
         nomeHelp.style.color = "red";
     } else {
         nomeHelp.textContent = "";
@@ -39,7 +39,7 @@ function validarEmail(e) {
     const emailValue = e.target.value.trim();
 
     if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.(com|br|net|org)$/.test(emailValue)) {
-        emailHelp.textContent = "O e-mail não é válido.";
+        emailHelp.textContent = "Formato de email inválido";
         emailHelp.style.color = "red";
     } else {
         emailHelp.textContent = "";
@@ -55,14 +55,14 @@ ano.addEventListener('focusout', () => {
     const anoTrimado = ano.value.trim();
 
     if (!anoTrimado.match(regexAno)) {
-        anoHelp.textContent = "Formato de ano inválido";
+        anoHelp.textContent = "Ano inválido";
         anoHelp.style.color = "red";
     } else {
         const anoNascimento = parseInt(anoTrimado);
 
 
         if (anoNascimento < 1900 || anoNascimento > 2022) {
-            anoHelp.textContent = `Ano de nascimento incorreto. Deve estar entre 1900 e 2022.`;
+            anoHelp.textContent = `Ano inválido`;
             anoHelp.style.color = "red";
         } else {
             anoHelp.textContent = "";
@@ -115,6 +115,19 @@ senhaInput.addEventListener('input', () => {
             passStrengthMeter.value = 30;
         }
     }
+
+    const submitButton = document.querySelector(".btn.btn-primary");
+
+    submitButton.addEventListener('click', function(e) {
+    
+        e.preventDefault();
+        
+        if (nomeHelp.textContent === "" && emailHelp.textContent === "" && anoHelp.textContent === "" && senhaHelp.textContent === "") {
+            alert("Seus dados foram registrados");
+        } else {
+            alert("Seus dados não foram registrados");
+        }
+    });
 
     
 });
